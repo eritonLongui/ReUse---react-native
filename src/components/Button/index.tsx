@@ -7,10 +7,12 @@ interface Props {
   onPress?: () => void;
 }
 
-export default function ReuseButton({ title, onPress }: Props) {
+const ReuseButton = ({ title, onPress }: Props) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 };
+
+export default ReuseButton;

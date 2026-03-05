@@ -21,7 +21,7 @@ interface Props {
 const Home = ({ navigation }: Props) => {
     return (
     <ScrollView
-      style={{ backgroundColor: colors.background }}
+      style={{ backgroundColor: colors.light }}
       contentContainerStyle={{ padding: spacing.lg }}
     >
       <Text style={styles.logo}>ReUse</Text>
