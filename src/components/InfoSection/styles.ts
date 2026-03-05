@@ -3,22 +3,21 @@ import { colors } from '../../styles/colors';
 import { spacing } from '../../styles/spacing';
 
 const styles = StyleSheet.create({
-  logo: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.primary,
+  container: {
+    backgroundColor: colors.white,
+    padding: spacing.md,
+    borderRadius: 12,
     marginBottom: spacing.md,
   },
-  headline: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: colors.textPrimary,
-    marginBottom: spacing.sm,
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.primary,
+    marginBottom: spacing.xs,
   },
-  subtitle: {
+  description: {
     fontSize: 14,
     color: colors.textSecondary,
-    marginBottom: spacing.lg,
     lineHeight: 20,
   },
 });
