@@ -4,7 +4,7 @@ import { spacing } from '../../styles/spacing';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightMedium,
     padding: spacing.md,
     borderRadius: 12,
     marginBottom: spacing.md,

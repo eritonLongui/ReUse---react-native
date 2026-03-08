@@ -4,7 +4,6 @@ import { spacing } from '../../styles/spacing';
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: colors.primary,
     paddingVertical: spacing.sm,
     borderRadius: 12,
     alignItems: 'center',
