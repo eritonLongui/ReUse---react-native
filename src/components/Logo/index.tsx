@@ -1,20 +1,23 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, DimensionValue } from 'react-native';
+import styles from './styles.ts';
 
 type LogoProps = {
-  variant?: 'logotipo' | 'simbolo';
+  variant?: 'logotipo' | 'simbolo' | 'sombreado';
+  width?: DimensionValue;
 }
 
-const Logo = ({ variant = 'logotipo' }: LogoProps) => {
-  const source =
-    variant === 'simbolo'
-      ? require('../../assets/isotipo.png')
-      : require('../../assets/logotipo.png');
+const logos = {
+  logotipo: require('../../assets/images/logotipo.png'),
+  simbolo: require('../../assets/images/isotipo.png'),
+  sombreado: require('../../assets/images/sombreado.png')
+};
 
+const Logo = ({ variant = 'logotipo', width = '100%' }: LogoProps) => {
   return (
     <Image
-      source={source}
-      resizeMode='contain'
+      style={[styles.image, { width }]}
+      source={logos[variant]}
     />
   )
 };

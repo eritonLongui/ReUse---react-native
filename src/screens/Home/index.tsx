@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, View } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 
@@ -8,6 +8,7 @@ import GradientBackground from '../../components/GradientBackground';
 import { spacing } from '../../styles/spacing';
 import InfoSection from '../../components/InfoSection';
 import Button from '../../components/Button';
+import Logo from '../../components/Logo/index.tsx';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -21,18 +22,20 @@ interface Props {
 const Home = ({ navigation }: Props) => {
   return (
     <GradientBackground>
-      <ScrollView
-        // contentContainerStyle={{ padding: spacing.lg }}
-      >
-        <Text style={styles.logo}>ReUse</Text>
+      <ScrollView>
+        <View style={{ marginVertical: spacing.xl }}>
+          <Logo width='70%' variant='sombreado' />
 
-        <Text style={styles.headline}>
-          Troque. Reutilize. Conecte.
-        </Text>
+          <Text style={styles.headline}>
+            Troque{'\n'}
+            Reutilize{'\n'}
+            Transforme
+          </Text>
 
-        <Text style={styles.subtitle}>
-          Uma plataforma digital que conecta pessoas para dar novos ciclos aos objetos.
-        </Text>
+          <Text style={styles.subtitle}>
+            Somos uma plataforma digital que dá novos ciclos à objetos, e aproxima pessoas.
+          </Text>
+        </View>
 
         <InfoSection
           title="O Problema"
@@ -45,7 +48,7 @@ const Home = ({ navigation }: Props) => {
         />
 
         <Button
-          title="Começar"
+          title="Explorar"
           onPress={() => navigation.navigate('Discover')}
         />
       </ScrollView>

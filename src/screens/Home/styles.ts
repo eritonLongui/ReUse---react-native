@@ -3,23 +3,20 @@ import { colors } from '../../styles/colors';
 import { spacing } from '../../styles/spacing';
 
 const styles = StyleSheet.create({
-  logo: {
-    fontSize: 28,
-    fontWeight: '700',
+  headline: {
+    fontFamily: 'Ubuntu-Bold',
+    fontSize: 40,
     color: colors.primary,
     marginBottom: spacing.md,
-  },
-  headline: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: colors.textPrimary,
-    marginBottom: spacing.sm,
+    marginHorizontal: spacing.xl,
   },
   subtitle: {
+    fontFamily: 'Ubuntu-Regular',
     fontSize: 14,
     color: colors.textSecondary,
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xl,
     lineHeight: 20,
+    marginHorizontal: spacing.xl,
   },
 });
 
