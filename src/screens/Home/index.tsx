@@ -5,10 +5,11 @@ import { RootStackParamList } from '../../navigation/types';
 
 import styles from './styles.ts';
 import GradientBackground from '../../components/GradientBackground';
-import { spacing } from '../../styles/spacing';
+
 import InfoSection from '../../components/InfoSection';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo/index.tsx';
+import Footer from '../../components/Footer/index.tsx';
 
 type HomeNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -23,18 +24,20 @@ const Home = ({ navigation }: Props) => {
   return (
     <GradientBackground>
       <ScrollView>
-        <View style={{ marginVertical: spacing.xl }}>
+        <View style={styles.top}>
           <Logo width='70%' variant='sombreado' />
 
-          <Text style={styles.headline}>
-            Troque{'\n'}
-            Reutilize{'\n'}
-            Transforme
-          </Text>
+          <View style={styles.hero}>
+            <Text style={styles.headline}>
+              Troque{'\n'}
+              Reutilize{'\n'}
+              Transforme
+            </Text>
 
-          <Text style={styles.subtitle}>
-            Somos uma plataforma digital que dá novos ciclos à objetos, e aproxima pessoas.
-          </Text>
+            <Text style={styles.subtitle}>
+              Somos uma plataforma digital que dá novos ciclos à objetos, e aproxima pessoas.
+            </Text>
+          </View>
         </View>
 
         <InfoSection
@@ -47,10 +50,14 @@ const Home = ({ navigation }: Props) => {
           description="O ReUse conecta pessoas para trocar itens de forma prática, fortalecendo a comunidade e reduzindo o desperdício."
         />
 
-        <Button
-          title="Explorar"
-          onPress={() => navigation.navigate('Discover')}
-        />
+        <View style={styles.bottom}>
+          <Button
+            title="Explorar"
+            onPress={() => navigation.navigate('Discover')}
+          />
+
+          <Footer />
+        </View>
       </ScrollView>
     </GradientBackground>
   );

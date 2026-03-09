@@ -4,14 +4,18 @@ import { spacing } from '../../styles/spacing';
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: spacing.sm,
+    height: 60,
+    width: 180,
     borderRadius: 12,
     alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    overflow: 'hidden',
   },
   text: {
     color: colors.light,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    fontFamily: 'Ubuntu-Bold',
   },
 });
 

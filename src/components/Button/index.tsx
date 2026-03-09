@@ -10,11 +10,11 @@ interface Props {
 
 const ReuseButton = ({ title, onPress }: Props) => {
   return (
-    <GradientBackground variant='blue'>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
+      <GradientBackground variant='blue' style={styles.button} >
         <Text style={styles.text}>{title}</Text>
-      </TouchableOpacity>
-    </GradientBackground>
+      </GradientBackground>
+    </TouchableOpacity>
   );
 };
 

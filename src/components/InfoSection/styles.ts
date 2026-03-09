@@ -10,16 +10,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'Ubuntu-Bold',
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: '600',
     color: colors.primary,
     marginBottom: spacing.xs,
   },
   description: {
     fontFamily: 'Ubuntu-Regular',
-    fontSize: 14,
+    fontSize: 16,
     color: colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 24,
   },
 });
 

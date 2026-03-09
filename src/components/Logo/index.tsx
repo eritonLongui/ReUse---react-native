@@ -5,6 +5,7 @@ import styles from './styles.ts';
 type LogoProps = {
   variant?: 'logotipo' | 'simbolo' | 'sombreado';
   width?: DimensionValue;
+  style?: object;
 }
 
 const logos = {
@@ -13,10 +14,10 @@ const logos = {
   sombreado: require('../../assets/images/sombreado.png')
 };
 
-const Logo = ({ variant = 'logotipo', width = '100%' }: LogoProps) => {
+const Logo = ({ variant = 'logotipo', width = '100%', style }: LogoProps) => {
   return (
     <Image
-      style={[styles.image, { width }]}
+      style={[styles.image, { width }, style]}
       source={logos[variant]}
     />
   )

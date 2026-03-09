@@ -2,7 +2,20 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../styles/colors';
 import { spacing } from '../../styles/spacing';
 
+import { Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
+  top: {
+    height: height * 0.9,
+    marginVertical: spacing.xl,
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  hero: {
+    height: height * 0.4,
+  },
   headline: {
     fontFamily: 'Ubuntu-Bold',
     fontSize: 40,
@@ -12,11 +25,16 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontFamily: 'Ubuntu-Regular',
-    fontSize: 14,
+    fontSize: 16,
     color: colors.textSecondary,
     marginBottom: spacing.xl,
     lineHeight: 20,
     marginHorizontal: spacing.xl,
+  },
+  bottom: {
+    height: height * 0.6,
+    paddingTop: spacing.xl,
+    justifyContent: 'space-between',
   },
 });
 
