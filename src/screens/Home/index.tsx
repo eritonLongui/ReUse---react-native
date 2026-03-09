@@ -31,23 +31,23 @@ const Home = ({ navigation }: Props) => {
             <Text style={styles.headline}>
               Troque{'\n'}
               Reutilize{'\n'}
-              Transforme
+              Conecte
             </Text>
 
             <Text style={styles.subtitle}>
-              Somos uma plataforma digital que dá novos ciclos à objetos, e aproxima pessoas.
+              Uma plataforma digital que dá novos ciclos a objetos e aproxima pessoas.
             </Text>
           </View>
         </View>
 
         <InfoSection
           title="O Problema"
-          description="Muitos objetos em bom estado são esquecidos ou descartados por falta de conexão entre quem tem e quem precisa."
+          description="Muitos objetos em bom estado são esquecidos ou descartados por falta de conexão entre quem tem e quem precisa deles."
         />
 
         <InfoSection
           title="A Solução"
-          description="O ReUse conecta pessoas para trocar itens de forma prática, fortalecendo a comunidade e reduzindo o desperdício."
+          description="O ReUse conecta pessoas para trocar itens de forma simples, fortalecendo a comunidade e reduzindo o desperdício."
         />
 
         <View style={styles.bottom}>
