@@ -1,49 +1,75 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../styles/colors';
+import { spacing } from '../../styles/spacing';
+import { Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xl,
+    paddingBottom: spacing.xl,
     justifyContent: 'center',
-    paddingHorizontal: 24,
+  },
+  top: {
+    marginBottom: spacing.xl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 24,
+    fontFamily: 'Ubuntu-Bold',
+    fontSize: 40,
+    color: colors.primary,
+    marginBottom: spacing.md,
     textAlign: 'center',
-    color: '#FFFFFF',
+  },
+  subtitle: {
+    fontFamily: 'Ubuntu-Regular',
+    fontSize: 16,
+    color: colors.textSecondary,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  form: {
+    minHeight: height * 0.35,
+    justifyContent: 'center',
   },
   input: {
-    height: 54,
+    height: 56,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.35)',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    marginBottom: 14,
-    color: '#FFFFFF',
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderColor: 'rgba(255,255,255,0.25)',
+    borderRadius: 16,
+    paddingHorizontal: spacing.lg,
+    marginBottom: spacing.md,
+    color: colors.primary,
+    backgroundColor: 'rgba(255,255,255,0.10)',
+    fontFamily: 'Ubuntu-Regular',
+  },
+  placeholderColor: {
+    color: colors.textSecondary,
   },
   primaryButton: {
-    height: 54,
-    borderRadius: 14,
+    height: 56,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginTop: 8,
+    backgroundColor: colors.primary,
+    marginTop: spacing.sm,
   },
   primaryButtonText: {
+    fontFamily: 'Ubuntu-Bold',
     fontSize: 16,
-    fontWeight: '700',
-    color: '#1C1C1C',
+    color: '#FFFFFF',
   },
   secondaryButton: {
-    marginTop: 16,
+    marginTop: spacing.lg,
     alignItems: 'center',
+    paddingVertical: spacing.sm,
   },
   secondaryButtonText: {
+    fontFamily: 'Ubuntu-Regular',
     fontSize: 14,
-    color: '#FFFFFF',
-    fontWeight: '500',
+    color: colors.primary,
   },
 });
 
