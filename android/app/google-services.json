@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912704217364",
+    "project_id": "reuse---fiap",
+    "storage_bucket": "reuse---fiap.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912704217364:android:8f4bda9c58e2fe577de201",
+        "android_client_info": {
+          "package_name": "com.reuse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFWyTDoHi-4vTviqZXjohuZx7VkvB9C2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -53,7 +53,7 @@ const Home = ({ navigation }: Props) => {
         <View style={styles.bottom}>
           <Button
             title="Explorar"
-            onPress={() => navigation.navigate('Discover')}
+            onPress={() => navigation.navigate('Auth')}
           />
 
           <Footer />
