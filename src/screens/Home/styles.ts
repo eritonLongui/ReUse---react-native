@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     height: height * 0.7,
-    flexGrow: 1,
     paddingTop: spacing.xl,
     justifyContent: 'space-between',
   },
