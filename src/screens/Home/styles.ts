@@ -8,7 +8,7 @@ const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   top: {
-    height: height * 0.9,
+    height: height,
     marginVertical: spacing.xl,
     display: 'flex',
     justifyContent: 'space-between',
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.xl,
   },
   bottom: {
-    height: height * 0.6,
+    height: height * 0.7,
+    flexGrow: 1,
     paddingTop: spacing.xl,
     justifyContent: 'space-between',
   },

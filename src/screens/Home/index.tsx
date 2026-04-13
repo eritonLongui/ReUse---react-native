@@ -23,7 +23,7 @@ interface Props {
 const Home = ({ navigation }: Props) => {
   return (
     <GradientBackground>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.top}>
           <Logo width='70%' variant='sombreado' />
 

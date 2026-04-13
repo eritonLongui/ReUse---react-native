@@ -17,6 +17,8 @@ import { RootStackParamList } from '../../navigation/types';
 import styles from './styles.ts';
 import GradientBackground from '../../components/GradientBackground';
 
+import { storeToken } from '../../services/storage';
+
 type AuthNavigationProp = NativeStackNavigationProp<
     RootStackParamList,
     'Auth'
@@ -41,11 +43,17 @@ const Auth = ({ navigation }: Props) => {
         try {
             setLoading(true);
 
-            if (mode === 'login') {
-                await auth().signInWithEmailAndPassword(email.trim(), password);
-            } else {
-                await auth().createUserWithEmailAndPassword(email.trim(), password);
-            }
+            const userCredential =
+                mode === 'login'
+                    ? await auth().signInWithEmailAndPassword(email.trim(), password)
+                    : await auth().createUserWithEmailAndPassword(email.trim(), password);
+
+            const user = userCredential.user;
+
+            const token = await user.getIdToken();
+            console.log('Token Firebase:', token);
+
+            await storeToken(token);
 
             navigation.replace('Discover');
         } catch (error: any) {
@@ -54,6 +62,8 @@ const Auth = ({ navigation }: Props) => {
             setTimeout(() => {
                 Alert.alert('Erro', error?.message || 'Erro ao autenticar');
             }, 100);
+        } finally {
+            setLoading(false);
         }
     };
 
