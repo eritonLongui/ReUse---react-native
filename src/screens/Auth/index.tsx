@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     Alert,
+    Image,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -12,27 +13,55 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/types';
 
 import styles from './styles.ts';
 import GradientBackground from '../../components/GradientBackground';
+import { storeToken, storeUserPhoto } from '../../services/storage';
+import { useCameraPermission } from 'react-native-vision-camera';
 
-import { storeToken } from '../../services/storage';
-
-type AuthNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Auth'
->;
+type AuthNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
+type AuthRouteProp = RouteProp<RootStackParamList, 'Auth'>;
 
 interface Props {
     navigation: AuthNavigationProp;
+    route: AuthRouteProp;
 }
 
-const Auth = ({ navigation }: Props) => {
+const Auth = ({ navigation, route }: Props) => {
     const [mode, setMode] = useState<'login' | 'register'>('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [photoUri, setPhotoUri] = useState<string | null>(null);
+
+    const { hasPermission, requestPermission } = useCameraPermission();
+
+    useEffect(() => {
+        const ensurePermission = async () => {
+            if (mode !== 'register') return;
+
+            if (hasPermission) return;
+
+            const granted = await requestPermission();
+
+            if (!granted) {
+                Alert.alert(
+                    'Permissão necessária',
+                    'Ative a câmera nas configurações para tirar a foto de perfil.',
+                );
+            }
+        };
+
+        ensurePermission();
+    }, [mode, hasPermission, requestPermission]);
+
+    useEffect(() => {
+        if (route.params?.photoUri) {
+            setPhotoUri(route.params.photoUri);
+        }
+    }, [route.params?.photoUri]);
 
     const handleSubmit = async () => {
         if (!email.trim() || !password.trim()) {
@@ -49,16 +78,17 @@ const Auth = ({ navigation }: Props) => {
                     : await auth().createUserWithEmailAndPassword(email.trim(), password);
 
             const user = userCredential.user;
-
             const token = await user.getIdToken();
-            console.log('Token Firebase:', token);
 
             await storeToken(token);
+
+            if (mode === 'register' && photoUri) {
+                await storeUserPhoto(user.uid, photoUri);
+            }
 
             navigation.replace('Discover');
         } catch (error: any) {
             console.log('ERRO FIREBASE:', error);
-
             setTimeout(() => {
                 Alert.alert('Erro', error?.message || 'Erro ao autenticar');
             }, 100);
@@ -89,6 +119,30 @@ const Auth = ({ navigation }: Props) => {
                     </View>
 
                     <View style={styles.form}>
+                        {mode === 'register' && (
+                            <View style={styles.photoSection}>
+                                {photoUri ? (
+                                    <Image source={{ uri: photoUri }} style={styles.avatar} />
+                                ) : (
+                                    <View style={styles.avatarPlaceholder}>
+                                        <Text style={styles.avatarPlaceholderText}>Foto</Text>
+                                    </View>
+                                )}
+
+                                <TouchableOpacity
+                                    style={styles.photoButton}
+                                    onPress={() => navigation.navigate('Camera')}
+                                    activeOpacity={0.85}
+                                >
+                                    <Text style={styles.photoButtonText}>Tirar foto de perfil</Text>
+                                </TouchableOpacity>
+
+                                <Text style={styles.cameraHint}>
+                                    A foto será salva junto do seu perfil neste aparelho.
+                                </Text>
+                            </View>
+                        )}
+
                         <TextInput
                             style={styles.input}
                             placeholder="E-mail"

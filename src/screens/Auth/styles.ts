@@ -71,6 +71,48 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.primary,
   },
+  photoSection: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  avatar: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    marginBottom: 12,
+  },
+  avatarPlaceholder: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    marginBottom: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.25)',
+  },
+  avatarPlaceholderText: {
+    fontFamily: 'Ubuntu-Bold',
+    color: '#FFFFFF',
+  },
+  photoButton: {
+    paddingVertical: 14,
+    paddingHorizontal: 18,
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+  },
+  photoButtonText: {
+    fontFamily: 'Ubuntu-Bold',
+    color: '#1C1C1C',
+  },
+  cameraHint: {
+    marginTop: 10,
+    textAlign: 'center',
+    fontSize: 12,
+    color: colors.textSecondary,
+    fontFamily: 'Ubuntu-Regular',
+  },
 });
 
 export default styles;
