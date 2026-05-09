@@ -2,19 +2,13 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../styles/colors';
 import { spacing } from '../../styles/spacing';
 
-import { Dimensions } from 'react-native';
-
-const { height } = Dimensions.get('window');
-
 const styles = StyleSheet.create({
   top: {
-    height: height,
     marginVertical: spacing.xl,
     display: 'flex',
     justifyContent: 'space-between',
   },
   hero: {
-    height: height * 0.4,
   },
   headline: {
     fontFamily: 'Ubuntu-Bold',
@@ -32,7 +26,6 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.xl,
   },
   bottom: {
-    height: height * 0.7,
     paddingTop: spacing.xl,
     justifyContent: 'space-between',
   },

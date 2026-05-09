@@ -1,55 +1,27 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import styles from './styles.ts';
+import Header from '../../components/Header';
+import GradientBackground from '../../components/GradientBackground';
+import { spacing } from '../../styles/spacing';
 
-import auth from '@react-native-firebase/auth';
-import { removeToken } from '../../services/storage';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/types';
-import Footer from '../../components/Footer/index.tsx';
-import Button from '../../components/Button';
-import { spacing } from '../../styles/spacing.ts';
-
-type DiscoverNavigationProp = NativeStackNavigationProp<
-    RootStackParamList,
-    'Discover'
->;
-
-interface Props {
-    navigation: DiscoverNavigationProp;
-}
-
-const Discover = ({ navigation }: Props) => {
-
-    const handleLogout = async () => {
-        try {
-            await auth().signOut();
-            await removeToken();
-            navigation.replace('Home');
-        } catch (error) {
-            console.log('Erro ao deslogar:', error);
-        }
-    };
-
+const Discover = () => {
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={{ height: spacing.xl }} />
-
-            <View style={styles.center}>
-                <Text style={styles.logo}>Como funciona? 🚀</Text>
-            </View>
-
-            <View style={styles.bottom}>
-                <Button
-                    title="Logout"
-                    onPress={handleLogout}
-                />
-
-                <View style={{ height: spacing.xl }} />
-
-                <Footer />
-            </View>
-        </ScrollView>
+        <GradientBackground>
+            <Header />
+            <ScrollView contentContainerStyle={[styles.container, { paddingHorizontal: spacing.xl }]}>
+                <View style={{ marginTop: spacing.xl }}>
+                    <Text style={[styles.logo, { fontSize: 24, textAlign: 'left' }]}>
+                        Feed de Trocas
+                    </Text>
+                    <Text style={{ marginTop: spacing.sm, color: '#666', fontFamily: 'Ubuntu-Regular' }}>
+                        Itens disponíveis perto de você aparecerão aqui.
+                    </Text>
+                </View>
+                
+                {/* Aqui entrará a listagem de itens futuramente */}
+            </ScrollView>
+        </GradientBackground>
     );
 };
 

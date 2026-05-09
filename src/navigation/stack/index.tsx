@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 
 import Home from '../../screens/Home';
-import Discover from '../../screens/Discover';
+import MainTabs from '../tabs';
 import Auth from '../../screens/Auth';
 import CameraScreen from '../../screens/Camera';
 
@@ -14,7 +14,7 @@ const StackRoutes = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Auth" component={Auth} />
-      <Stack.Screen name="Discover" component={Discover} />
+      <Stack.Screen name="Discover" component={MainTabs} />
       <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
   );

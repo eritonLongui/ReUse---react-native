@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, ScrollView, View, useWindowDimensions } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 
@@ -21,13 +21,15 @@ interface Props {
 }
 
 const Home = ({ navigation }: Props) => {
+  const { height } = useWindowDimensions();
+
   return (
     <GradientBackground>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.top}>
+        <View style={[styles.top, { height }]}>
           <Logo width='70%' variant='sombreado' />
 
-          <View style={styles.hero}>
+          <View style={[styles.hero, { height: height * 0.4 }]}>
             <Text style={styles.headline}>
               Troque{'\n'}
               Reutilize{'\n'}
@@ -50,7 +52,7 @@ const Home = ({ navigation }: Props) => {
           description="O ReUse conecta pessoas para trocar itens de forma simples, fortalecendo a comunidade e reduzindo o desperdício."
         />
 
-        <View style={styles.bottom}>
+        <View style={[styles.bottom, { height: height * 0.7 , justifyContent: 'flex-end', gap: 180 }]}>
           <Button
             title="Explorar"
             onPress={() => navigation.navigate('Auth')}
