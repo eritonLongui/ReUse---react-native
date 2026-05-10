@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TOKEN_KEY = '@user_token';
 const PHOTO_KEY_PREFIX = '@user_photo_';
+const LOCATION_KEY_PREFIX = '@user_location_';
+const CEP_KEY_PREFIX = '@user_cep_';
 
 export const storeToken = async (token: string) => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
@@ -21,4 +23,22 @@ export const storeUserPhoto = async (uid: string, photoUri: string) => {
 
 export const getUserPhoto = async (uid: string) => {
   return await AsyncStorage.getItem(`${PHOTO_KEY_PREFIX}${uid}`);
+};
+
+export const storeLocation = async (location: { lat: number, long: number, updateAt: string }, uid: string = 'temp') => {
+  await AsyncStorage.setItem(`${LOCATION_KEY_PREFIX}${uid}`, JSON.stringify(location));
+};
+
+export const getLocation = async (uid: string = 'temp') => {
+  const loc = await AsyncStorage.getItem(`${LOCATION_KEY_PREFIX}${uid}`);
+  return loc ? JSON.parse(loc) : null;
+};
+
+export const storeUserCep = async (uid: string, cepData: { cep: string, address: string }) => {
+  await AsyncStorage.setItem(`${CEP_KEY_PREFIX}${uid}`, JSON.stringify(cepData));
+};
+
+export const getUserCep = async (uid: string) => {
+  const cep = await AsyncStorage.getItem(`${CEP_KEY_PREFIX}${uid}`);
+  return cep ? JSON.parse(cep) : null;
 };

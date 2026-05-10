@@ -18,7 +18,8 @@ import { RootStackParamList } from '../../navigation/types';
 
 import styles from './styles.ts';
 import GradientBackground from '../../components/GradientBackground';
-import { storeToken, storeUserPhoto } from '../../services/storage';
+import { storeToken, storeUserPhoto, storeUserCep } from '../../services/storage';
+import axios from 'axios';
 import { useCameraPermission } from 'react-native-vision-camera';
 
 type AuthNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
@@ -35,6 +36,9 @@ const Auth = ({ navigation, route }: Props) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [photoUri, setPhotoUri] = useState<string | null>(null);
+    const [cep, setCep] = useState('');
+    const [address, setAddress] = useState('');
+    const [loadingCep, setLoadingCep] = useState(false);
 
     const { hasPermission, requestPermission } = useCameraPermission();
 
@@ -63,6 +67,30 @@ const Auth = ({ navigation, route }: Props) => {
         }
     }, [route.params?.photoUri]);
 
+    useEffect(() => {
+        const fetchCep = async () => {
+            const cleanCep = cep.replace(/\D/g, '');
+            if (cleanCep.length === 8) {
+                setLoadingCep(true);
+                try {
+                    const res = await axios.get(`https://viacep.com.br/ws/${cleanCep}/json/`);
+                    if (res.data && !res.data.erro) {
+                        setAddress(`${res.data.logradouro}, ${res.data.bairro} - ${res.data.localidade}/${res.data.uf}`);
+                    } else {
+                        setAddress('CEP não encontrado');
+                    }
+                } catch (err) {
+                    setAddress('Erro ao buscar CEP');
+                } finally {
+                    setLoadingCep(false);
+                }
+            } else {
+                setAddress('');
+            }
+        };
+        fetchCep();
+    }, [cep]);
+
     const handleSubmit = async () => {
         if (!email.trim() || !password.trim()) {
             Alert.alert('Atenção', 'Preencha e-mail e senha.');
@@ -84,6 +112,10 @@ const Auth = ({ navigation, route }: Props) => {
 
             if (mode === 'register' && photoUri) {
                 await storeUserPhoto(user.uid, photoUri);
+            }
+
+            if (mode === 'register' && cep) {
+                await storeUserCep(user.uid, { cep, address });
             }
 
             navigation.replace('Discover');
@@ -161,6 +193,28 @@ const Auth = ({ navigation, route }: Props) => {
                             value={password}
                             onChangeText={setPassword}
                         />
+
+                        {mode === 'register' && (
+                            <>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="CEP (somente números)"
+                                    placeholderTextColor={styles.placeholderColor.color}
+                                    keyboardType="numeric"
+                                    maxLength={8}
+                                    value={cep}
+                                    onChangeText={setCep}
+                                />
+                                {loadingCep && <ActivityIndicator color={styles.placeholderColor.color} style={{ marginVertical: 8 }} />}
+                                {!!address && (
+                                    <View style={[styles.input, { justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.1)' }]}>
+                                        <Text style={{ color: '#ccc', fontFamily: 'Ubuntu-Regular' }}>
+                                            {address}
+                                        </Text>
+                                    </View>
+                                )}
+                            </>
+                        )}
 
                         <TouchableOpacity
                             style={styles.primaryButton}
