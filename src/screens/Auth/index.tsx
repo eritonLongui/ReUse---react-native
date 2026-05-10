@@ -21,6 +21,10 @@ import GradientBackground from '../../components/GradientBackground';
 import { storeToken, storeUserPhoto, storeUserCep } from '../../services/storage';
 import axios from 'axios';
 import { useCameraPermission } from 'react-native-vision-camera';
+import { Eye, EyeOff } from 'lucide-react-native';
+import { colors } from '../../styles/colors';
+
+// caso necessário futuramente, incluir o Nominatim como geocoder
 
 type AuthNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 type AuthRouteProp = RouteProp<RootStackParamList, 'Auth'>;
@@ -39,6 +43,7 @@ const Auth = ({ navigation, route }: Props) => {
     const [cep, setCep] = useState('');
     const [address, setAddress] = useState('');
     const [loadingCep, setLoadingCep] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const { hasPermission, requestPermission } = useCameraPermission();
 
@@ -185,14 +190,26 @@ const Auth = ({ navigation, route }: Props) => {
                             onChangeText={setEmail}
                         />
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Senha"
-                            placeholderTextColor={styles.placeholderColor.color}
-                            secureTextEntry
-                            value={password}
-                            onChangeText={setPassword}
-                        />
+                        <View style={{ position: 'relative' }}>
+                            <TextInput
+                                style={[styles.input, { paddingRight: 50 }]}
+                                placeholder="Senha"
+                                placeholderTextColor={styles.placeholderColor.color}
+                                secureTextEntry={!showPassword}
+                                value={password}
+                                onChangeText={setPassword}
+                            />
+                            <TouchableOpacity
+                                style={{ position: 'absolute', right: 16, top: 16 }}
+                                onPress={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? (
+                                    <EyeOff color={styles.placeholderColor.color} size={24} />
+                                ) : (
+                                    <Eye color={styles.placeholderColor.color} size={24} />
+                                )}
+                            </TouchableOpacity>
+                        </View>
 
                         {mode === 'register' && (
                             <>
@@ -208,7 +225,7 @@ const Auth = ({ navigation, route }: Props) => {
                                 {loadingCep && <ActivityIndicator color={styles.placeholderColor.color} style={{ marginVertical: 8 }} />}
                                 {!!address && (
                                     <View style={[styles.input, { justifyContent: 'center', backgroundColor: 'rgba(255,255,255,0.1)' }]}>
-                                        <Text style={{ color: '#ccc', fontFamily: 'Ubuntu-Regular' }}>
+                                        <Text style={{ color: colors.primary, fontFamily: 'Ubuntu-Bold' }}>
                                             {address}
                                         </Text>
                                     </View>

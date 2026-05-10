@@ -5,6 +5,21 @@ const PHOTO_KEY_PREFIX = '@user_photo_';
 const LOCATION_KEY_PREFIX = '@user_location_';
 const CEP_KEY_PREFIX = '@user_cep_';
 
+/*
+  =========================================
+  CACHE ATUAL DO SISTEMA:
+  - Token do usuário (Auth)
+  - Dados básicos/Foto de Perfil do usuário
+  - Geolocalização do perfil (latitude, longitude, updateAt)
+  - CEP e Endereço validados
+
+  CACHE FUTURO (A IMPLEMENTAR):
+  - Itens já carregados no Discover (Feed)
+  - Última busca ou filtro usado
+  - Imagens ou metadados de itens vistos recentemente
+  =========================================
+*/
+
 export const storeToken = async (token: string) => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
 };
