@@ -1,4 +1,42 @@
 {
-  "name": "ReUse",
-  "displayName": "ReUse"
+  "expo": {
+    "name": "ReUse",
+    "slug": "reuse",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.reuse"
+    },
+    "android": {
+      "package": "com.reuse",
+      "googleServicesFile": "./google-services.json"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "O ReUse precisa de acesso à câmera para tirar fotos de itens.",
+          "enableMicrophonePermission": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow ReUse to use your location to find nearby items."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ]
+  }
 }

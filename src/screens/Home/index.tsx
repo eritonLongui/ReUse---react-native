@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ScrollView, View, useWindowDimensions, Alert, PermissionsAndroid, Platform } from 'react-native';
+import { Text, ScrollView, View, useWindowDimensions } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/types';
 
@@ -10,7 +10,7 @@ import InfoSection from '../../components/InfoSection';
 import Button from '../../components/Button';
 import Logo from '../../components/Logo/index.tsx';
 import Footer from '../../components/Footer/index.tsx';
-import Geolocation from '@react-native-community/geolocation';
+import * as Location from 'expo-location';
 import { useCameraPermission } from 'react-native-vision-camera';
 import { storeLocation } from '../../services/storage.ts';
 
@@ -32,53 +32,35 @@ const Home = ({ navigation }: Props) => {
     await requestCameraPermission();
 
     // Solicitar Localização
-    if (Platform.OS === 'android') {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Permissão de Localização',
-            message: 'O ReUse precisa da sua localização para mostrar itens próximos a você.',
-            buttonNeutral: 'Perguntar depois',
-            buttonNegative: 'Cancelar',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          getCurrentLocationAndProceed();
-        } else {
-          // Mesmo sem localização, prossegue
-          navigation.navigate('Auth');
-        }
-      } catch (err) {
-        console.warn(err);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        await getCurrentLocationAndProceed();
+      } else {
+        // Mesmo sem localização, prossegue
         navigation.navigate('Auth');
       }
-    } else {
-      // iOS
-      Geolocation.requestAuthorization(
-        () => getCurrentLocationAndProceed(),
-        () => navigation.navigate('Auth')
-      );
+    } catch (err) {
+      console.warn(err);
+      navigation.navigate('Auth');
     }
   };
 
-  const getCurrentLocationAndProceed = () => {
-    Geolocation.getCurrentPosition(
-      async (position) => {
-        const lat = Number(position.coords.latitude.toFixed(3));
-        const long = Number(position.coords.longitude.toFixed(3));
-        const updateAt = new Date().toISOString();
-        
-        await storeLocation({ lat, long, updateAt });
-        navigation.navigate('Auth');
-      },
-      (error) => {
-        console.log('Erro ao pegar localização', error);
-        navigation.navigate('Auth');
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
+  const getCurrentLocationAndProceed = async () => {
+    try {
+      const position = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      const lat = Number(position.coords.latitude.toFixed(3));
+      const long = Number(position.coords.longitude.toFixed(3));
+      const updateAt = new Date().toISOString();
+      
+      await storeLocation({ lat, long, updateAt });
+      navigation.navigate('Auth');
+    } catch (error) {
+      console.log('Erro ao pegar localização', error);
+      navigation.navigate('Auth');
+    }
   };
 
   return (
